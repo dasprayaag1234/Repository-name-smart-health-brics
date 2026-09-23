@@ -18,10 +18,12 @@ export function IndiaRiskMap({ facilities, risksByFacility }: {
   return (
     <div className="h-[420px] rounded-lg overflow-hidden border border-slate-800">
       <MapContainer center={[22.5, 80]} zoom={4.5} style={{ height: "100%", width: "100%", background: "#0f172a" }}>
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; <a href="https://carto.com/attributions">CARTO</a> &copy; OpenStreetMap contributors'
-        />
+<TileLayer
+  url={`https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png?key=${process.env.NEXT_PUBLIC_CARTO_API_KEY}`}
+  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+  subdomains={["a", "b", "c", "d"]}
+  maxZoom={20}
+/>
         {facilities.map((f) => {
           const risks = risksByFacility[f.id] || [];
           const worst = risks.reduce<string>((acc, r) => {
