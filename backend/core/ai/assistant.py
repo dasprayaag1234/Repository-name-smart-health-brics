@@ -18,7 +18,7 @@ from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
-GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent"
 
 SYSTEM_INSTRUCTIONS = (
     "You are the AI assistant embedded in a national health supply-chain command center. "
@@ -144,3 +144,4 @@ def answer_question(question: str) -> dict:
     if gemini_answer:
         return {"answer": gemini_answer, "source": "gemini", "grounded_context_size": len(json.dumps(context, default=str))}
     return {"answer": _rule_based_fallback(question, context), "source": "fallback", "grounded_context_size": len(json.dumps(context, default=str))}
+
